@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Velocidade de Internet</title>
+</head>
+<body>
+    <h1>Envie os dados de sua velocidade de internet</h1>
+    <form id="internetSpeedForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="position">Cargo:</label>
+        <input type="text" id="position" name="position" required><br><br>
+
+        <label for="screenshot">Upload do Print:</label>
+        <input type="file" id="screenshot" name="screenshot" accept="image/*" required><br><br>
+
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <p id="responseMessage"></p>
+
+    <script>
+        async function submitForm() {
+            const form = document.getElementById('internetSpeedForm');
+            const formData = new FormData(form);
+
+            const response = await fetch('https://script.google.com/macros/s/AKfycbx438sSp2hsQdUxkxLMEeLbSchKzPZnTbsnsfrXfc1DuhPfnWYj-b1FKYJxtWAdIhiy4g/exec', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('responseMessage').innerText = result.message;
+        }
+    </script>
+</body>
+</html>
